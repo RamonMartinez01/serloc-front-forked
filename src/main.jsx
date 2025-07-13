@@ -1,10 +1,13 @@
 import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
+import { createRoot, ReactDOM } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
+import { ConsultaProvider } from './context/ConsultaContext.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <App />
+    <ConsultaProvider>
+      <App />
+    </ConsultaProvider>
   </StrictMode>,
 )
