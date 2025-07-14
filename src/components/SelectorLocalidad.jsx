@@ -45,8 +45,8 @@ const SelectorLocalidad = () => {
       <label>Localidades:</label>
       <select multiple value={localidadesSeleccionadas} onChange={manejarCambio}>
         {localidadesDisponibles.map((localidad) => (
-          <option key={localidad.CVELOC} value={localidad.CVELOC}>
-            {localidad.NOMGEO}
+          <option key={localidad.CVE_LOC} value={localidad.CVE_LOC}>
+            {localidad.NOM_LOC}
           </option>
         ))}
       </select>
