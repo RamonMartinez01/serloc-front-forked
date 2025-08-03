@@ -1,14 +1,17 @@
 import React from "react";
-import SelectorEstado from "../components/SelectorEstado";
-import SelectorMunicipio from "../components/SelectorMunicipio";
+import ConsultaForm from "../components/ConsultaForm";
 
 const HomePage = () => {
 
 
     return (
         <div>
-            <SelectorEstado />
-            <SelectorMunicipio />
+            <section>
+                
+            </section>
+            <section>
+              <ConsultaForm /> 
+            </section>
         </div>
     )
 };
