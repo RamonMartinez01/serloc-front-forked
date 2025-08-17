@@ -1,16 +1,23 @@
 import React from "react";
-import ConsultaForm from "../components/ConsultaForm";
+import ConsultaForm from "../components/ConsultaForum/ConsultaForum.jsx";
 
 const HomePage = () => {
 
 
     return (
-        <div>
-            <section>
-                
+        <div className="consulta__main-cointainer">
+            <section className="">
+                <h1>
+                    Servicio de Información y Conocimiento de Localidades Rurales y sus Territorios
+                </h1>
             </section>
             <section>
-              <ConsultaForm /> 
+                <div>
+                    <ConsultaForm />
+                </div>
+                <div>
+                    {/*Sección de ficha de resultados*/}
+                </div>
             </section>
         </div>
     )
