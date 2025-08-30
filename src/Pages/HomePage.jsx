@@ -5,20 +5,20 @@ const HomePage = () => {
 
 
     return (
-        <div className="consulta__main-cointainer">
-            <section className="">
-                <h1>
-                    Servicio de Información y Conocimiento de Localidades Rurales y sus Territorios
-                </h1>
-            </section>
-            <section>
-                <div>
+        <div className="home">
+
+            <h1 className="home__title">
+                Servicio de Información y Conocimiento de Localidades Rurales y sus Territorios
+            </h1>
+
+            <div className="home__grid">
+                <div className="card">
                     <ConsultaForm />
                 </div>
                 <div>
                     {/*Sección de ficha de resultados*/}
                 </div>
-            </section>
+            </div>
         </div>
     )
 };

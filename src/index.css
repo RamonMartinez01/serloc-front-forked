@@ -1,50 +1,74 @@
 body {
-    font-family: system-ui, sans-serif;
-    background-color: #f8f9fa;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    min-height: 100vh;
-  }
-  
-  .consulta-form {
-    margin-top: 4rem;
-    background-color: white;
-    padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-    width: 90%;
-    max-width: 600px;
-  }
-  
-  .consulta-form h2 {
-    margin-bottom: 1.5rem;
-    color: #333;
-  }
-  
-  .consulta-form select {
-    width: 100%;
-    padding: 0.6rem;
-    margin-bottom: 1rem;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-    background-color: #fff;
-  }
+  font-family: system-ui, sans-serif;
+  background-color: #f8f9fa;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
 
-  .consulta-loc h4 {
-    margin-top: 1.2rem;
-    margin-bottom: .4rem;
-  }
-  .consulta-loc label {
-    font-weight: 500;
-  }
+/* --- Contenedor de página --- */
+.home {
+  /* alineado a la izquierda con respiro */
+  margin: 2rem 0 4rem 2rem; /* <-- margen inferior extra */
+  padding-right: 1rem;
+  max-width: 1400px;
+}
 
-  .consulta-loc h4 {
-    margin-top: 1.2rem;
-    margin-bottom: .4rem;
-  }
-  .consulta-loc label {
-    font-weight: 500;
-  }
+/* Título */
+.home__title {
+  margin: 0 0 1.25rem 0;
+}
+
+/* Grid: formulario a la izquierda, resultados a la derecha */
+.home__grid {
+  display: grid;
+  grid-template-columns: 520px 1fr; /* 520px a la izq, resto a la derecha */
+  gap: 2rem;
+  align-items: start;
+}
+
+/* Card base compartida */
+.card {
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,.08);
+  padding: 1.5rem;
+}
+
+/* Ajuste de la tarjeta del formulario para ocupar su columna */
+.consulta-form {
+  width: 100%;
+  max-width: none; /* deja que el grid mande */
+}
+
+.consulta-form h2 {
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+.consulta-form select {
+  width: 100%;
+  padding: 0.6rem;
+  margin-bottom: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+}
+
+.consulta-loc h4 {
+  margin-top: 1.2rem;
+  margin-bottom: .4rem;
+}
+
+.consulta-loc label {
+  font-weight: 500;
+}
+
+.consulta-loc h4 {
+  margin-top: 1.2rem;
+  margin-bottom: .4rem;
+}
+
+.consulta-loc label {
+  font-weight: 500;
+}
