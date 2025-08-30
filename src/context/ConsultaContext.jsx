@@ -8,6 +8,12 @@ export const ConsultaProvider = ({ children }) => {
     const [municipioSeleccionado, setMunicipioSeleccionado] = useState("");
     const [localidadesSeleccionadas, setLocalidadesSeleccionadas] = useState([]);
 
+    const [tipoConsulta, setTipoConsulta] = useState("");        // 'localidades' | 'propiedad'
+    const [temaSeleccionado, setTemaSeleccionado] = useState(null); // objeto tema
+    const [anioSeleccionado, setAnioSeleccionado] = useState("2010");
+    const [indicadoresSeleccionados, setIndicadoresSeleccionados] = useState([]);
+    const [variablesSeleccionadas, setVariablesSeleccionadas] = useState([]);
+
     return (
         <ConsultaContext.Provider
           value={{
@@ -17,6 +23,13 @@ export const ConsultaProvider = ({ children }) => {
             setMunicipioSeleccionado,
             localidadesSeleccionadas,
             setLocalidadesSeleccionadas,
+
+            tipoConsulta, setTipoConsulta,
+            temaSeleccionado, setTemaSeleccionado,
+            anioSeleccionado, setAnioSeleccionado,
+            indicadoresSeleccionados, setIndicadoresSeleccionados,
+            variablesSeleccionadas, setVariablesSeleccionadas,
+            
           }}
         >
             {children}
