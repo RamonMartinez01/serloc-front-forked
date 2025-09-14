@@ -72,3 +72,35 @@ body {
 .consulta-loc label {
   font-weight: 500;
 }
+
+/* Resultados */
+.resultados-panel h3 {
+  margin: 0 0 1rem 0;
+}
+.resultados-panel table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.resultados-panel th,
+.resultados-panel td {
+  border-bottom: 1px solid #e9ecef;
+  padding: .65rem .5rem;
+  text-align: left;
+}
+
+/* Botonera de descargas */
+.resultados-actions {
+  display: flex;
+  gap: .75rem;
+  margin-top: 1rem;
+}
+
+/* Responsive: en pantallas angostas, todo en una columna */
+@media (max-width: 1000px) {
+  .home {
+    margin: 1rem;
+  }
+  .home__grid {
+    grid-template-columns: 1fr;
+  }
+}
