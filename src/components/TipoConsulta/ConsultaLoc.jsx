@@ -6,6 +6,8 @@ import SelectorLocalidad from "../SelectorLocalidad";
 import { api } from "../../api";           // instancia axios
 import { getIndicadores } from "../../api/indicadores"; // lo añadiremos enseguida
 
+
+
 const ConsultaLoc = () => {
   const {
     temaSeleccionado, setTemaSeleccionado,
@@ -23,6 +25,24 @@ const ConsultaLoc = () => {
     api.get("/temas").then(res => setTemas(res.data));
   }, []);
 
+  // Helpers
+  const normalize = (s) =>
+    s.normalize?.('NFD').replace(/\p{Diacritic}/gu, '').toLowerCase() ?? s.toLowerCase();
+
+  const esIndicador = (texto) => {
+    const t = normalize(texto.trim());
+    return t.startsWith('indice') || t.startsWith('nivel'); // cubre "Índice"/"Indice" y "Nivel"
+  };
+
+  // Incluye si el texto menciona el año elegido (ya sea "2010" o "2020", o en rangos "2010-2020")
+  const incluyeAnio = (texto, anio) => texto.includes(anio);
+
+  // Reemplaza cualquier "2010-2020" | "2010" | "2020" por el año elegido, preservando demás sufijos
+  const formatearEtiquetaConAnio = (texto, anio) => {
+    // Nota: solo llamamos esta función si `incluyeAnio(texto, anio)` ya fue true
+    return texto.replace(/\b2010-2020\b|\b2010\b|\b2020\b/g, anio);
+  };
+
   /* ───────── 2. filtrar indicadores/variables ───────── */
   useEffect(() => {
     if (!temaSeleccionado) {
@@ -32,25 +52,24 @@ const ConsultaLoc = () => {
     }
 
     getIndicadores().then(res => {
-      const data = res.data.filter(item =>
-        item.cve_tem === temaSeleccionado.cve_tem &&
-        item.indicadores.endsWith(anioSeleccionado)
+       // 1) filtra por tema y por presencia del año elegido (incluye rangos)
+      const dataFiltrada = res.data.filter(
+        (item) => item.cve_tem === temaSeleccionado.cve_tem && incluyeAnio(item.indicadores, anioSeleccionado)
       );
 
-      setIndicadoresFiltrados(
-        data.filter(d =>
-          d.indicadores.toLowerCase().startsWith("índice") ||
-          d.indicadores.toLowerCase().startsWith("nivel")
-        )
-      );
+     // 2) normaliza las etiquetas para que muestren SOLO el año elegido
+    const dataEtiquetada = dataFiltrada.map((item) => ({
+      ...item,
+      indicadores: formatearEtiquetaConAnio(item.indicadores, anioSeleccionado),
+    }));
 
-      setVariablesFiltradas(
-        data.filter(d =>
-          !d.indicadores.toLowerCase().startsWith("índice") &&
-          !d.indicadores.toLowerCase().startsWith("nivel")
-        )
-      );
-    });
+    // 3) separa Indicadores vs Variables por prefijo ("Índice"/"Nivel")
+    const soloIndicadores = dataEtiquetada.filter((d) => esIndicador(d.indicadores));
+    const soloVariables = dataEtiquetada.filter((d) => !esIndicador(d.indicadores));
+
+    setIndicadoresFiltrados(soloIndicadores);
+    setVariablesFiltradas(soloVariables);
+  });
   }, [temaSeleccionado, anioSeleccionado]);
 
   /* ───────── handler de checkbox ───────── */
