@@ -4,7 +4,7 @@ import SelectorEstado from "../SelectorEstado";
 import SelectorMunicipio from "../SelectorMunicipio";
 import SelectorLocalidad from "../SelectorLocalidad";
 import { api } from "../../api";           // instancia axios
-import { getIndicadores } from "../../api/indicadores"; // lo añadiremos enseguida
+import { getIndicadores } from "../../api/indicadores";
 
 
 
@@ -52,24 +52,24 @@ const ConsultaLoc = () => {
     }
 
     getIndicadores().then(res => {
-       // 1) filtra por tema y por presencia del año elegido (incluye rangos)
+      // 1) filtra por tema y por presencia del año elegido (incluye rangos)
       const dataFiltrada = res.data.filter(
         (item) => item.cve_tem === temaSeleccionado.cve_tem && incluyeAnio(item.indicadores, anioSeleccionado)
       );
 
-     // 2) normaliza las etiquetas para que muestren SOLO el año elegido
-    const dataEtiquetada = dataFiltrada.map((item) => ({
-      ...item,
-      indicadores: formatearEtiquetaConAnio(item.indicadores, anioSeleccionado),
-    }));
+      // 2) normaliza las etiquetas para que muestren SOLO el año elegido
+      const dataEtiquetada = dataFiltrada.map((item) => ({
+        ...item,
+        indicadores: formatearEtiquetaConAnio(item.indicadores, anioSeleccionado),
+      }));
 
-    // 3) separa Indicadores vs Variables por prefijo ("Índice"/"Nivel")
-    const soloIndicadores = dataEtiquetada.filter((d) => esIndicador(d.indicadores));
-    const soloVariables = dataEtiquetada.filter((d) => !esIndicador(d.indicadores));
+      // 3) separa Indicadores vs Variables por prefijo ("Índice"/"Nivel")
+      const soloIndicadores = dataEtiquetada.filter((d) => esIndicador(d.indicadores));
+      const soloVariables = dataEtiquetada.filter((d) => !esIndicador(d.indicadores));
 
-    setIndicadoresFiltrados(soloIndicadores);
-    setVariablesFiltradas(soloVariables);
-  });
+      setIndicadoresFiltrados(soloIndicadores);
+      setVariablesFiltradas(soloVariables);
+    });
   }, [temaSeleccionado, anioSeleccionado]);
 
   /* ───────── handler de checkbox ───────── */
@@ -78,6 +78,14 @@ const ConsultaLoc = () => {
       ? lista.filter(x => x !== id)
       : [...lista, id]);
   };
+
+  /* limpia los valores de indicadoresSeleccionados, variablesSeleccionadas al cambiar el año seleccionado */
+  useEffect(() => {
+    if (indicadoresSeleccionados.length || variablesSeleccionadas.length) {
+      setVariablesSeleccionadas([])
+      setIndicadoresSeleccionados([])
+    }
+  }, [anioSeleccionado, temaSeleccionado, SelectorMunicipio])
 
   return (
     <div className="consulta-loc">

@@ -16,7 +16,7 @@ const ResultadosPanel = () => {
     temaSeleccionado,
   } = useConsulta();
 
-  // Cargamos catálogo de indicadores para mapear IDs -> texto
+  // Carga catálogo de indicadores para mapear IDs -> texto
   const [catIndicadores, setCatIndicadores] = useState([]);
   useEffect(() => {
     getIndicadores().then((res) => setCatIndicadores(res.data)).catch(() => {});

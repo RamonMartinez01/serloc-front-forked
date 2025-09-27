@@ -1,6 +1,6 @@
 import React from "react";
 import ConsultaForm from "../components/ConsultaForum/ConsultaForum.jsx";
-//import ResultadosPanel from "../components/Resultados/ResultadosPanel.jsx";
+import ResultadosPanel from "../components/Resultados/ResultadosPanel.jsx";
 
 const HomePage = () => {
 
@@ -16,9 +16,9 @@ const HomePage = () => {
                 <div className="card">
                     <ConsultaForm />
                 </div>
-                {/*<div className="card resultados-panel">
+                {<div className="card resultados-panel">
                     < ResultadosPanel/>
-                </div>*/}
+                </div>}
             </div>
         </div>
     )
