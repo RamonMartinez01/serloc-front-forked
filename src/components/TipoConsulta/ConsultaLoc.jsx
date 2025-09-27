@@ -10,6 +10,8 @@ import { getIndicadores } from "../../api/indicadores";
 
 const ConsultaLoc = () => {
   const {
+    estadoSeleccionado,
+    municipioSeleccionado,
     temaSeleccionado, setTemaSeleccionado,
     anioSeleccionado, setAnioSeleccionado,
     indicadoresSeleccionados, setIndicadoresSeleccionados,
@@ -20,7 +22,7 @@ const ConsultaLoc = () => {
   const [indicadoresFiltrados, setIndicadoresFiltrados] = useState([]);
   const [variablesFiltradas, setVariablesFiltradas] = useState([]);
 
-  /* ───────── 1. carga de temas ───────── */
+  /* ───────── carga de temas ───────── */
   useEffect(() => {
     api.get("/temas").then(res => setTemas(res.data));
   }, []);
@@ -43,7 +45,18 @@ const ConsultaLoc = () => {
     return texto.replace(/\b2010-2020\b|\b2010\b|\b2020\b/g, anio);
   };
 
-  /* ───────── 2. filtrar indicadores/variables ───────── */
+  /* ─────────  Reseteo en cascada  ───────── */
+  useEffect(() => {
+    if (!estadoSeleccionado) {
+      // Si se limpió el estado, también limpia municipio/localidades desde sus componentes
+    }
+    setTemaSeleccionado(null);
+    setIndicadoresSeleccionados([]);
+    setVariablesSeleccionadas([]);
+    setAnioSeleccionado("2010");
+  }, [estadoSeleccionado]);
+
+  /* ─────────  filtrar indicadores/variables ───────── */
   useEffect(() => {
     if (!temaSeleccionado) {
       setIndicadoresFiltrados([]);
